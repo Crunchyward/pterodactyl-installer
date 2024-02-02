@@ -65,7 +65,7 @@ ask_letsencrypt() {
 
   warning "You cannot use Let's Encrypt with your hostname as an IP address! It must be a FQDN (e.g. node.example.org)."
 
-  echo -e -n "* Do you want to automatically configure HTTPS using Let's Encrypt? (y/N): "
+  echo -e -n "* Do you want to automatically configure HTTPS using Let's Encrypt? (Y/N): "
   read -r CONFIRM_SSL
 
   if [[ "$CONFIRM_SSL" =~ [Yy] ]]; then
@@ -102,7 +102,7 @@ ask_database_external() {
 
 ask_database_firewall() {
   warning "Allow incoming traffic to port 3306 (MySQL) can potentially be a security risk, unless you know what you are doing!"
-  echo -n "* Would you like to allow incoming traffic to port 3306? (y/N): "
+  echo -n "* Would you like to allow incoming traffic to port 3306? (Y/N): "
   read -r CONFIRM_DB_FIREWALL
   if [[ "$CONFIRM_DB_FIREWALL" =~ [Yy] ]]; then
     CONFIGURE_DB_FIREWALL=true
@@ -117,7 +117,7 @@ main() {
   # check if we can detect an already existing installation
   if [ -d "/etc/pterodactyl" ]; then
     warning "The script has detected that you already have Pterodactyl wings on your system! You cannot run the script multiple times, it will fail!"
-    echo -e -n "* Are you sure you want to proceed? (y/N): "
+    echo -e -n "* Are you sure you want to proceed? (Y/N): "
     read -r CONFIRM_PROCEED
     if [[ ! "$CONFIRM_PROCEED" =~ [Yy] ]]; then
       error "Installation aborted!"
@@ -174,7 +174,7 @@ main() {
       [ -d "/etc/letsencrypt/live/$FQDN/" ] && error "A certificate with this FQDN already exists!" && ASK=true # check if cert exists
 
       [ "$ASK" == true ] && FQDN=""
-      [ "$ASK" == true ] && echo -e -n "* Do you still want to automatically configure HTTPS using Let's Encrypt? (y/N): "
+      [ "$ASK" == true ] && echo -e -n "* Do you still want to automatically configure HTTPS using Let's Encrypt? (Y/N): "
       [ "$ASK" == true ] && read -r CONFIRM_SSL
 
       if [[ ! "$CONFIRM_SSL" =~ [Yy] ]] && [ "$ASK" == true ]; then
@@ -194,7 +194,7 @@ main() {
     done
   fi
 
-  echo -n "* Proceed with installation? (y/N): "
+  echo -n "* Proceed with installation? (Y/N): "
 
   read -r CONFIRM
   if [[ "$CONFIRM" =~ [Yy] ]]; then
@@ -225,7 +225,7 @@ function goodbye {
   echo "* systemctl start wings"
   echo "*"
   echo -e "* ${COLOR_RED}Note${COLOR_NC}: It is recommended to enable swap (for Docker, read more about it in official documentation)."
-  [ "$CONFIGURE_FIREWALL" == false ] && echo -e "* ${COLOR_RED}Note${COLOR_NC}: If you haven't configured your firewall, ports 8080 and 2022 needs to be open."
+  [ "$CONFIGURE_FIREWALL" == false ] && echo -e "* ${COLOR_RED}Note${COLOR_NC}: If you haven't configured your firewall, ports 8443 and 2083 needs to be open. For cloudflare support."
   print_brake 70
   echo ""
 }

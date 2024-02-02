@@ -48,7 +48,7 @@ main() {
 
   if [ -d "/var/www/pterodactyl" ]; then
     output "Panel installation has been detected."
-    echo -e -n "* Do you want to remove panel? (y/N): "
+    echo -e -n "* Do you want to remove panel? (Y/N): "
     read -r RM_PANEL_INPUT
     [[ "$RM_PANEL_INPUT" =~ [Yy] ]] && RM_PANEL=true
   fi
@@ -56,7 +56,7 @@ main() {
   if [ -d "/etc/pterodactyl" ]; then
     output "Wings installation has been detected."
     warning "This will remove all the servers!"
-    echo -e -n "* Do you want to remove Wings (daemon)? (y/N): "
+    echo -e -n "* Do you want to remove Wings (daemon)? (Y/N): "
     read -r RM_WINGS_INPUT
     [[ "$RM_WINGS_INPUT" =~ [Yy] ]] && RM_WINGS=true
   fi
@@ -69,7 +69,7 @@ main() {
   summary
 
   # confirm uninstallation
-  echo -e -n "* Continue with uninstallation? (y/N): "
+  echo -e -n "* Continue with uninstallation? (Y/N): "
   read -r CONFIRM
   if [[ "$CONFIRM" =~ [Yy] ]]; then
     run_installer "uninstall"
@@ -90,7 +90,7 @@ goodbye() {
   print_brake 62
   [ "$RM_PANEL" == true ] && output "Panel uninstallation completed"
   [ "$RM_WINGS" == true ] && output "Wings uninstallation completed"
-  output "Thank you for using this script."
+  output "Thank you for using this script. And have a great day."
   print_brake 62
 }
 

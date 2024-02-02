@@ -133,12 +133,12 @@ systemd_file() {
 }
 
 firewall_ports() {
-  output "Opening port 22 (SSH), 8080 (Wings Port), 2022 (Wings SFTP Port)"
+  output "Opening port 22 (SSH), 8443 (Wings Port With CloudFlare Support), 2087 (Wings SFTP Port With CloudFlare)"
 
   [ "$CONFIGURE_LETSENCRYPT" == true ] && firewall_allow_ports "80 443"
   [ "$CONFIGURE_DB_FIREWALL" == true ] && firewall_allow_ports "3306"
 
-  firewall_allow_ports "22 8080 2022"
+  firewall_allow_ports "22 8443 2087"
 
   success "Firewall ports opened!"
 }
